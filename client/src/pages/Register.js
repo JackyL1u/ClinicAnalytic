@@ -2,6 +2,7 @@ import '../App.css';
 import { LockClosedIcon } from '@heroicons/react/20/solid'
 import { useNavigate } from 'react-router-dom';
 import { register } from "../api/services"
+import logo from "../components/images/logo.png"
 
 function Register() {
   const navigate = useNavigate();
@@ -26,11 +27,11 @@ function Register() {
     <div className="App">
       <header className="App-header">
         <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-          <div className="w-full max-w-md space-y-8">
+          <div className="w-full max-w-md space-y-3">
             <div>
               <img
-                className="mx-auto h-12 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                className="mx-auto h-60 w-auto"
+                src={logo}
                 alt="Your Company"
               />
               <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">

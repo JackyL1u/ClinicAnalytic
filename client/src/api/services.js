@@ -136,6 +136,7 @@ export const analyzeData = async (token) => {
   }
 };
 
+
 export const addDoctor = async (token, data) => {
   let responseData = null;
 
@@ -149,6 +150,29 @@ export const addDoctor = async (token, data) => {
 
   try {
     const response = await axios.post(`${process.env.REACT_APP_API_ROOT}/api/doctor/add`, data, headers);
+
+    responseData = await response.data;
+
+    return responseData;
+  }
+  catch (_) {
+    return DEFAULT_ERROR
+  }
+};
+
+export const analyzeDoctor = async (token, data) => {
+  let responseData = null;
+
+  const headers = {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+      'Access-Control-Allow-Origin': '*'
+    }
+  }
+
+  try {
+    const response = await axios.post(`${process.env.REACT_APP_API_ROOT}/api/analyze/doctor`, data, headers);
 
     responseData = await response.data;
 

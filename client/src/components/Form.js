@@ -51,7 +51,7 @@ function Form() {
                         <div className="px-4 sm:px-0">
                             <h3 className="text-lg font-medium leading-6 text-gray-900">Submit Patient Information</h3>
                             <p className="mt-1 text-sm text-gray-600">
-                                Temp text
+                                Submit information of Patients. Please upload Health Card and select race/gender for the patient.
                             </p>
                         </div>
                     </div>
@@ -59,57 +59,6 @@ function Form() {
                         <form onSubmit={handleSubmit}>
                             <div className="shadow sm:overflow-hidden sm:rounded-md">
                                 <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
-                                    {/* <div className="grid grid-cols-3 gap-6">
-                                        <div className="col-span-3 sm:col-span-2">
-                                            <label htmlFor="company-website" className="block text-sm font-medium text-gray-700">
-                                                First Name
-                                            </label>
-                                            <div className="mt-1 flex rounded-md shadow-sm">
-                                                <input
-                                                    type="text"
-                                                    name="firstName"
-                                                    id="firstName"
-                                                    className="block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                                    placeholder="John"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div> */}
-{/* 
-                                    <div className="grid grid-cols-3 gap-6">
-                                        <div className="col-span-3 sm:col-span-2">
-                                            <label htmlFor="company-website" className="block text-sm font-medium text-gray-700">
-                                                Last Name
-                                            </label>
-                                            <div className="mt-1 flex rounded-md shadow-sm">
-                                                <input
-                                                    type="text"
-                                                    name="lastName"
-                                                    id="lastName"
-                                                    className="block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                                    placeholder="Smith"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div> */}
-
-                                    {/* <div className="grid grid-cols-3 gap-6">
-                                        <div className="col-span-3 sm:col-span-2">
-                                            <label htmlFor="company-website" className="block text-sm font-medium text-gray-700">
-                                                Address
-                                            </label>
-                                            <div className="mt-1 flex rounded-md shadow-sm">
-                                                <input
-                                                    type="text"
-                                                    name="address"
-                                                    id="address"
-                                                    className="block w-full flex-1 rounded-none rounded-r-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                                    placeholder="1 Address St"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div> */}
-
                                     <Box sx={{ minWidth: 120 }}>
                                         <FormControl fullWidth>
                                             <InputLabel id="demo-simple-select-label">Race</InputLabel>
@@ -175,7 +124,7 @@ function Form() {
                                                 <div className="flex text-sm text-gray-600">
                                                     <label
                                                         htmlFor="file-upload"
-                                                        className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
+                                                        className="cursor-pointer rounded-md font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500"
                                                     >
                                                         <span>Upload a file</span>
                                                         <input onChange={onChangePicture} id="file-upload" name="file-upload" type="file" className="sr-only" />

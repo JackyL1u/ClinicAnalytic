@@ -40,7 +40,7 @@ function FormDoctor() {
                         <div className="px-4 sm:px-0">
                             <h3 className="text-lg font-medium leading-6 text-gray-900">Submit New Doctor</h3>
                             <p className="mt-1 text-sm text-gray-600">
-                                Temp text
+                                Add a new Doctor to your Hospital's Database. Provide the Doctor's first name, last name, race and gender.
                             </p>
                         </div>
                     </div>

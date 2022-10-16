@@ -2,10 +2,28 @@ import '../App.css';
 import Sidebar from "../components/Sidebar"
 import Navbar from "../components/Navbar"
 import Button from '@mui/material/Button';
-import { analyzeData } from "../api/services"
+import { analyzeData, analyzeDoctor } from "../api/services"
 import React, { useEffect } from 'react';
+import { verifySession } from "../api/services"
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 function Analyze() {
+
+  const [doctorsList, setDoctorsList] = React.useState([]);
+
+  useEffect(async () => {
+    var res = await verifySession(localStorage.getItem("token"))
+    setDoctorsList(res.doctors)
+  }, []);
+
+  const [doctor, setDoctor] = React.useState('');
+  const handleChangeDoctor = (event) => {
+    setDoctor(event.target.value);
+  };
 
   const [patientAsian, setPatientAsian] = React.useState("");
   const [patientBlack, setPatientBlack] = React.useState("");
@@ -23,7 +41,9 @@ function Analyze() {
   const [patientSameRace, setPatientSameRace] = React.useState("");
   const [patientStroke, setPatientStroke] = React.useState("");
   const [patientWhite, setPatientWhite] = React.useState("");
+  const [graphs, setGraphs] = React.useState([]);
 
+  const [currentState, setCurrentState] = React.useState("");
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -44,6 +64,16 @@ function Analyze() {
     setPatientSameRace("data:image/png;base64, " + res.encoded_data.same_race)
     setPatientStroke("data:image/png;base64, " + res.encoded_data.stroke)
     setPatientWhite("data:image/png;base64, " + res.encoded_data.white)
+    setCurrentState("hospital")
+  }
+
+  async function handleSubmitDoctor(event) {
+    event.preventDefault();
+    let res = await analyzeDoctor(localStorage.getItem("token"), {
+      doctor_id: doctor
+    })
+    setGraphs(res.graphs)
+    setCurrentState("doctor")
   }
 
   return (
@@ -53,32 +83,16 @@ function Analyze() {
         <Sidebar />
         <div class="main">
           <br />
-          <div class="bg-white dark:bg-gray-900">
+          <div className="centered">
+          </div>
+          <div class="bg-white">
             <div class="container px-6 py-8 mx-auto">
               <div class="xl:items-center xl:-mx-8 xl:flex">
-                <div class="flex flex-col items-center xl:items-start xl:mx-8">
-                  <h1 class="text-3xl font-medium text-gray-800 capitalize lg:text-4xl dark:text-white">Our Pricing Plan</h1>
-
-                  <p class="mt-4 font-medium text-gray-500 dark:text-gray-300">
-                    You can get All Access by selecting your plan!
-                  </p>
-
-                  <a href="#" class="flex items-center mt-4 -mx-1 text-sm text-gray-700 capitalize dark:text-blue-400 hover:underline hover:text-blue-600 dark:hover:text-blue-500">
-                    <span class="mx-1">read more</span>
-                    <svg class="w-4 h-4 mx-1 rtl:-scale-x-100" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                  </a>
-                </div>
-
                 <div class="flex-1 xl:mx-8">
                   <div class="mt-8 space-y-8 md:-mx-4 md:flex md:items-center md:justify-center md:space-y-0 xl:mt-0">
-                    <div class="max-w-sm mx-auto border rounded-lg md:mx-4 dark:border-gray-700">
+                    <div class="max-w-sm mx-auto border rounded-lg md:mx-4 dark:border-gray-700 dark:bg-gray-900" style={{ minHeight: "300px" }}>
                       <div class="p-6">
-                        <h1 class="text-xl font-medium text-gray-700 capitalize lg:text-3xl dark:text-white">Hospital</h1>
-
-                        <p class="mt-4 text-gray-500 dark:text-gray-300">
-                          Analyze all data from all hospital staff
-                        </p>
-
+                        <h1 class="text-xl font-medium text-gray-700 capitalize lg:text-3xl dark:text-white">Hospital - All Staff</h1>
                         <div className="centered">
                           <br /><br />
                           <span className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
@@ -88,18 +102,36 @@ function Analyze() {
                       </div>
                     </div>
 
-                    <div class="max-w-sm mx-auto border rounded-lg md:mx-4 dark:border-gray-700">
+                    <div class="max-w-sm mx-auto border rounded-lg md:mx-4 dark:border-gray-700 dark:bg-gray-900" style={{ minHeight: "300px" }}>
                       <div class="p-6">
-                        <h1 class="text-xl font-medium text-gray-700 capitalize lg:text-3xl dark:text-white">Doctor</h1>
-
-                        <p class="mt-4 text-gray-500 dark:text-gray-300">
-                          Analyze one Doctor and detect anomalies
-                        </p>
+                        <h1 class="text-xl font-medium text-gray-700 capitalize lg:text-3xl dark:text-white">Doctor - Specific Staff</h1>
+                        <div className="mt-5 md:col-span-2 md:mt-0">
+                          <div className="shadow sm:overflow-hidden sm:rounded-md">
+                            <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
+                              <Box sx={{ minWidth: 120 }}>
+                                <FormControl fullWidth>
+                                  <InputLabel id="demo-simple-select-label">Doctor</InputLabel>
+                                  <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={doctor}
+                                    label="Prescription Outcome"
+                                    onChange={handleChangeDoctor}
+                                  >
+                                    {doctorsList.map((item) => (
+                                      <MenuItem value={item.doctor_id}>{item.firstName} {item.lastName}</MenuItem>
+                                    ))}
+                                  </Select>
+                                </FormControl>
+                              </Box>
+                            </div>
+                          </div>
+                        </div>
 
                         <div className="centered">
                           <br /><br />
                           <span className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                            <Button onClick={handleSubmit} style={{ color: "white", textTransform: "none" }}>Analyze</Button>
+                            <Button onClick={handleSubmitDoctor} style={{ color: "white", textTransform: "none" }}>Analyze</Button>
                           </span>
                         </div>
                       </div>
@@ -109,38 +141,50 @@ function Analyze() {
               </div>
             </div>
           </div>
-          <img src={patientAsian}></img>
 
-          <img src={patientBlack}></img>
+          {currentState == "hospital" && (
+            <div>
+              <div className="centered"><img src={patientAsian} className="centered"></img></div>
 
-          <img src={patientCancers}></img>
+              <div className="centered"><img src={patientBlack}></img></div>
 
-          <img src={patientDiabetes}></img>
+              <div className="centered"><img src={patientCancers}></img></div>
 
-          <img src={patientDiffGenders}></img>
+              <div className="centered"><img src={patientDiabetes}></img></div>
 
-          <img src={patientDiffRace}></img>
+              <div className="centered"><img src={patientDiffGenders}></img></div>
 
-          <img src={patientFemale}></img>
+              <div className="centered"><img src={patientDiffRace}></img></div>
 
-          <img src={patientHispanic}></img>
+              <div className="centered"><img src={patientFemale}></img></div>
 
-          <img src={patientMale}></img>
+              <div className="centered"><img src={patientHispanic}></img></div>
 
-          <img src={patientNativeIndian}></img>
+              <div className="centered"><img src={patientMale}></img></div>
 
-          <img src={patientOther}></img>
+              <div className="centered"><img src={patientNativeIndian}></img></div>
 
-          <img src={patientOverall}></img>
+              <div className="centered"><img src={patientOther}></img></div>
 
-          <img src={patientSameGender}></img>
+              <div className="centered"><img src={patientOverall}></img></div>
 
-          <img src={patientSameRace}></img>
+              <div className="centered"><img src={patientSameGender}></img></div>
 
-          <img src={patientStroke}></img>
+              <div className="centered"><img src={patientSameRace}></img></div>
 
-          <img src={patientWhite}></img>
-        </div></div>
+              <div className="centered"><img src={patientStroke}></img></div>
+
+              <div className="centered"><img src={patientWhite}></img></div>
+            </div>)}
+
+          {currentState == "doctor" && (
+            <div>
+              {graphs.map((item) => (
+                <div className="centered"><img src={"data:image/png;base64, " + item}></img></div>
+              ))}
+            </div>)}
+        </div>
+      </div>
     </div>
   );
 }

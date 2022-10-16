@@ -53,7 +53,7 @@ function FormProcedure() {
                         <div className="px-4 sm:px-0">
                             <h3 className="text-lg font-medium leading-6 text-gray-900">Submit Procedure Information</h3>
                             <p className="mt-1 text-sm text-gray-600">
-                                Temp text
+                                Submit new information for record keeping. Select the Doctor from your Hospital and the associated Patient's Health Card Number. State the Patient's disease and the outcome of the procedure completed by the Doctor.
                             </p>
                         </div>
                     </div>
@@ -127,51 +127,6 @@ function FormProcedure() {
                                             </Select>
                                         </FormControl>
                                     </Box>
-
-                                    {/* <Box sx={{ width: '100%' }}>
-                                        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                                            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                                                <Tab label="Surgery" />
-                                                <Tab label="Prescription" />
-                                            </Tabs>
-                                        </Box>
-                                        <TabPanel value={value} index={0}>
-                                            <Box sx={{ minWidth: 120 }}>
-                                                <FormControl fullWidth>
-                                                    <InputLabel id="demo-simple-select-label">Surgery Outcome</InputLabel>
-                                                    <Select
-                                                        labelId="demo-simple-select-label"
-                                                        id="demo-simple-select"
-                                                        value={surgeryStatus}
-                                                        label="Surgery Outcome"
-                                                        onChange={handleChangeSurgery}
-                                                    >
-                                                        <MenuItem value={1}>Success</MenuItem>
-                                                        <MenuItem value={2}>Failure</MenuItem>
-                                                        <MenuItem value={3}>Fatal</MenuItem>
-                                                    </Select>
-                                                </FormControl>
-                                            </Box>
-                                        </TabPanel>
-                                        <TabPanel value={value} index={1}>
-                                            <Box sx={{ minWidth: 120 }}>
-                                                <FormControl fullWidth>
-                                                    <InputLabel id="demo-simple-select-label">Prescription Outcome</InputLabel>
-                                                    <Select
-                                                        labelId="demo-simple-select-label"
-                                                        id="demo-simple-select"
-                                                        value={prescriptionStatus}
-                                                        label="Prescription Outcome"
-                                                        onChange={handleChangePrescription}
-                                                    >
-                                                        <MenuItem value={1}>Success</MenuItem>
-                                                        <MenuItem value={2}>Failure</MenuItem>
-                                                        <MenuItem value={3}>Fatal</MenuItem>
-                                                    </Select>
-                                                </FormControl>
-                                            </Box>
-                                        </TabPanel>
-                                    </Box> */}
 
                                 </div>
                                 <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
