@@ -1,0 +1,9 @@
+Flask==2.0.2
+Flask-Cors==3.0.10
+pyjwt
+python-decouple
+pymongo
+pandas
+matplotlib
+easyocr
+python-opencv

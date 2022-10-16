@@ -1,0 +1,37 @@
+.App {
+  text-align: center;
+}
+
+
+.App-header {
+  background-color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.sidenav {
+  height: 100%;
+  position: fixed;
+  z-index: 1;
+  overflow-x: hidden;
+  overflow: hidden;
+}
+
+.navHead {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.main {
+  margin-top: 50px;
+  margin-left: 300px; /* Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
