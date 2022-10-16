@@ -8,7 +8,7 @@ function Records() {
   return (
     <div>
       <Navbar />
-      <div style={{ display: "flex" }}>
+      <div>
         <Sidebar />
         <div class="main">
           <br />

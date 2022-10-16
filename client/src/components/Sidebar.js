@@ -9,7 +9,6 @@ function Sidebar() {
     return (
         <div class="sidenav">
             <div class="flex flex-col w-64 h-screen px-4 py-8 bg-white bg-gray-900 dark:border-gray-700">
-                <h2 class="text-3xl font-semibold text-gray-800 dark:text-white">Hack The Valley</h2>
 
 
                 <div class="flex flex-col justify-between flex-1 mt-6">
