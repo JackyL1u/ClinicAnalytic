@@ -29,3 +29,35 @@ def analysis():
             "encoded_data": encoded_data
         }
     )
+
+
+@routes_analysis.route('/doctor', methods=['POST'], strict_slashes=False)
+def analysis_doctor():
+    try:
+        sessionToken = request.headers.get('Authorization').replace("Token ", "").replace("Bearer ", "")
+    except Exception as e:
+        return jsonify({'Error': 'No Bearer', 'Message': str(e)}), 401
+
+    session = database["sessions"].find_one({"sessionToken": sessionToken})
+
+    if session is None:
+        return jsonify({"status": 401, "message": "session not found"})
+
+    findUserQuery = database["users"].find_one({"userID": session.get("userID")})
+
+    try:
+        req = request.get_json()
+    except (Exception,):
+        return jsonify({'Error': 'Invalid JSON'}), 401
+
+    doctor_id = req.get('doctor_id')
+
+    getRecords = database["records"].find({"hospital_id": findUserQuery.get("hospital_id")}, {"_id": False})
+
+    analyze = Analyze(list(getRecords))
+    encoded_data = analyze.doctor_stats(doctor_id)
+
+    return jsonify(
+        encoded_data
+    )
+

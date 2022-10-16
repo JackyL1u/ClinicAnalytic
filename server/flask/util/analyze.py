@@ -214,7 +214,7 @@ class Analyze:
 
         for items in [self.races, self.genders, self.diseases]:
             encoded_string = self.bar_graph(current, plt, items)
-            graphs.append(graphs)
+            graphs.append(encoded_string)
 
         return {
             'good': good,
