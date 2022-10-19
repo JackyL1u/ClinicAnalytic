@@ -42,6 +42,8 @@ function Analyze() {
   const [patientStroke, setPatientStroke] = React.useState("");
   const [patientWhite, setPatientWhite] = React.useState("");
   const [graphs, setGraphs] = React.useState([]);
+  const [good, setGood] = React.useState([]);
+  const [bad, setBad] = React.useState([]);
 
   const [currentState, setCurrentState] = React.useState("");
 
@@ -73,6 +75,8 @@ function Analyze() {
       doctor_id: doctor
     })
     setGraphs(res.graphs)
+    setGood(res.good)
+    setBad(res.bad)
     setCurrentState("doctor")
   }
 
@@ -179,6 +183,11 @@ function Analyze() {
 
           {currentState == "doctor" && (
             <div>
+              <b>Exceptional:</b> {good.join(", ")}
+              <br />
+              <b>Needs Improvement:</b> {bad.join(", ")}
+              <br />
+              <hr />
               {graphs.map((item) => (
                 <div className="centered"><img src={"data:image/png;base64, " + item}></img></div>
               ))}

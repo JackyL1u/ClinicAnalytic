@@ -1,4 +1,5 @@
 import os
+import math
 import numpy
 import pandas
 import matplotlib
@@ -128,8 +129,10 @@ class Analyze:
             fig, ax = plt.subplots()
             ax.scatter(self.dataframe[outcomes_pairs[1]], self.dataframe[outcomes_pairs[3]])
             ax.set_title(outcomes_pairs[0])
-            ax.set_xlabel(outcomes_pairs[1])
-            ax.set_ylabel(outcomes_pairs[3])
+            ax.set_xlabel(outcomes_pairs[1].replace('_', ' '))
+            ax.set_ylabel(outcomes_pairs[3].replace('_', ' '))
+            ax.set_ylim(bottom=-0.1, top=1.1)
+            ax.set_xlim(left=-0.1, right=1.1)
             name = 'fig.png'
             plt.savefig(name)
             plt.close(fig)
@@ -150,7 +153,7 @@ class Analyze:
             outcomes_pairs.append(name)
         self.outcomes_keys.append(outcomes_pairs)
 
-    def bar_graph(self, current, plt, items):
+    def bar_graph(self, current, plt, items, name):
         width = 0.1
         x = numpy.arange(len(self.outcomes))
         y = []
@@ -175,8 +178,10 @@ class Analyze:
         for i in range(len(y)):
             ax.bar(x + x_width[i], y[i], width, color=colors[i])
 
+        ax.set_title(name.upper())
         ax.set_xticks(x, self.outcomes)
         ax.set_ylabel("Percentage")
+        ax.set_ylim(bottom=0, top=1)
         name = 'fig.png'
         plt.legend(items)
         plt.savefig(name)
@@ -198,22 +203,24 @@ class Analyze:
             mean = self.dataframe[key].mean()
             std = self.dataframe[key].std()
 
+            if math.ceil(current[key].mean()*100)/100 == 0:
+                continue
+
             if 'success' in key:
                 if current[key].mean() < mean - std:
-                    bad.append(key)
+                    bad.append(key.replace('_', ' '))
                 elif current[key].mean() > mean + std:
-                    good.append(key)
+                    good.append(key.replace('_', ' '))
 
             if 'fail' in key or 'fatal' in key:
                 if current[key].mean() < mean - std:
-                    good.append(key)
+                    good.append(key.replace('_', ' '))
                 elif current[key].mean() > mean + std:
-                    bad.append(key)
-
+                    bad.append(key.replace('_', ' '))
         graphs = []
 
-        for items in [self.races, self.genders, self.diseases]:
-            encoded_string = self.bar_graph(current, plt, items)
+        for items, name in [(self.races, "races"), (self.genders, "genders"), (self.diseases, "diseases")]:
+            encoded_string = self.bar_graph(current, plt, items, name)
             graphs.append(encoded_string)
 
         return {
